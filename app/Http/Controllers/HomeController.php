@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserSignedUp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use Cache;
 
 class HomeController extends Controller
 {
@@ -18,6 +21,10 @@ class HomeController extends Controller
 
     public function home()
     {
+        if (auth()->check()){
+            event(new UserSignedUp(auth()->user()));
+        }
+
         return view('welcome');
     }
 }
