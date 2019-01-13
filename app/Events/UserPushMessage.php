@@ -11,22 +11,42 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserSignedUp implements ShouldBroadcast
+class UserPushMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * @var User
      */
-    public $user;
+    public $sender;
 
     /**
-     * UserSignedUp constructor.
-     * @param User $user
+     * @var User
      */
-    public function __construct(User $user)
+    public $receiver;
+
+    /**
+     * @var string
+     */
+    public $text;
+
+    /**
+     * @var string
+     */
+    public $data;
+
+    /**
+     * UserPushMessage constructor.
+     * @param User $sender
+     * @param User $receiver
+     * @param string $text
+     */
+    public function __construct(User $sender, User $receiver, string $text)
     {
-        $this->user = $user;
+        $this->sender = $sender;
+        $this->receiver = $receiver;
+        $this->text = $text;
+        $this->data = date("D M j, G:i:s");
     }
 
     /**

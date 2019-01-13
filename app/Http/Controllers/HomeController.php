@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserSignedUp;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use Cache;
+use App\Events\UserPushMessage;
+use App\Http\Requests\UserMessagePushRequest;
+use App\Models\User;
 
 class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -16,15 +25,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('pages.home');
     }
 
-    public function home()
+    /**
+     * @param UserMessagePushRequest $request
+     * @return string
+     */
+    public function push(UserMessagePushRequest $request): string
     {
-        if (auth()->check()){
-            event(new UserSignedUp(auth()->user()));
-        }
+        $user = User::where('id', $request->input('user_id'))->firstOrFail();
+        $message = $request->input('message');
+        event(new UserPushMessage(auth()->user(), $user, $message));
 
-        return view('welcome');
+        return response()->json('Ok', 200);
     }
 }

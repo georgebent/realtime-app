@@ -6,6 +6,7 @@
 - Laravel [5.7]
 - NodeJS [8.10.0]
 - NPM [3.5.2]
+- Redis
 
 ## Installation
 
@@ -45,6 +46,13 @@ In .env file you must enter:
 Add to cron:
 
 * * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+
+## Usage
+
+for run socket.io server run:
+```sh
+node socket.js
+```
 
 ## Troubleshooting & FAQ
 
