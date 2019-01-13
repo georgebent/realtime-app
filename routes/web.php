@@ -13,5 +13,8 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@home')->name('home-page');
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/', 'HomeController@index')->name('home');
+Route::post('/push', 'HomeController@push')->name('push-user');
+
+Route::get('/api/user', 'Api\UserApiController@getUser')->name('api-get-user');
+Route::get('/api/users', 'Api\UserApiController@getUsers')->name('api-get-users');
