@@ -13,6 +13,7 @@
 After download run composer install:
 ```sh
 composer install
+php artisan key:generate
 ```
 In main directory run:
 ```sh
@@ -42,6 +43,7 @@ php artisan route:cache
 
 In .env file you must enter:
 - database settings
+- redis settings
 
 Add to cron:
 
