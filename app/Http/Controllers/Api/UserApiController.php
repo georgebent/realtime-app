@@ -16,15 +16,35 @@ class UserApiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
-     * @return User
+     * @SWG\Get(
+     *     path="/api/user",
+     *     summary="Get user",
+     *     tags={"Get User"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          description="Project id",
+     *          required=false,
+     *          type="integer",
+     *          in="query",
+     *      ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="successful operation",
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Unauthorized user",
+     *     ),
+     * )
      */
-    public function getUser() : User
+    public function getUser()
     {
-       return auth()->user();
+        $user = auth()->user();
+        return $user ? $user : ['message' => 'not found'];
     }
 
     /**
