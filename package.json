@@ -27,7 +27,7 @@
   "dependencies": {
     "ioredis": "^4.3.0",
     "socket.io": "^2.2.0",
-    "terser": "3.14.1",
+    "terser": "4.8.1",
     "vue-select": "^2.5.1"
   }
 }
